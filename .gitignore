@@ -56,3 +56,7 @@ dkms.conf
 
 # Ignore VSCode
 .vscode
+
+# Build directory and generated artifacts
+build
+ta-lib/c/include/ta_config.h

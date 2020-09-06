@@ -1,7 +1,13 @@
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 
 PROJECT(ta-lib)
+
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
+SET(CMAKE_VERBOSE_MAKEFILE ON)
 
 SET(TA_LIB_VERSION_MAJOR 0)
 SET(TA_LIB_VERSION_MINOR 6)
@@ -14,12 +20,6 @@ IF(TA_LIB_VERSION_EXTRA)
 ENDIF(TA_LIB_VERSION_EXTRA)
 
 OPTION(TA_LIB_ENABLE_C "Enable C library" ON)
-OPTION(TA_LIB_ENABLE_GEN_CODE "Enable the gen_code utility (only needed by when adding new functions to the Ta-Lib)" OFF)
-OPTION(TA_LIB_ENABLE_DOTNET "Enable .NET bindings" OFF)
-OPTION(TA_LIB_ENABLE_EXCEL "Enable Excel bindings" OFF)
-OPTION(TA_LIB_ENABLE_JAVA "Enable Java bindings" OFF)
-OPTION(TA_LIB_ENABLE_SWIG "Enable SWIG bindings" OFF)
-OPTION(TA_LIB_ENABLE_TESTS "Enable tests building" OFF)
 
 INCLUDE(CheckIncludeFiles)
 INCLUDE(CheckFunctionExists)
@@ -72,39 +72,4 @@ ENDIF()
 CHECK_SYMBOL_EXISTS("struct tm" "sys/time.h" TM_IN_SYS_TIME)
 CONFIGURE_FILE(${ta-lib_SOURCE_DIR}/c/include/ta_config.h.cmake ${ta-lib_SOURCE_DIR}/c/include/ta_config.h)
 
-
-
-
-
-IF(TA_LIB_ENABLE_C)
-	ADD_SUBDIRECTORY(c)
-ENDIF(TA_LIB_ENABLE_C)
-
-IF(TA_LIB_ENABLE_DOTNET)
-	MESSAGE(SEND_ERROR "Not yet implemented")
-	IF(!WIN32)
-		MESSAGE(SEND_ERROR ".NET bindings can be generated only onder Windows at the times")
-	ENDIF(WIN32)
-	ADD_SUBDIRECTORY(dotnet)
-ENDIF(TA_LIB_ENABLE_DOTNET)
-
-IF(TA_LIB_ENABLE_EXCEL)
-	MESSAGE(SEND_ERROR "Not yet implemented")
-ENDIF(TA_LIB_ENABLE_EXCEL)
-
-IF(TA_LIB_ENABLE_JAVA)
-	MESSAGE(SEND_ERROR "Not yet implemented")
-ENDIF(TA_LIB_ENABLE_JAVA)
-
-IF(TA_LIB_ENABLE_SWIG)
-	MESSAGE(SEND_ERROR "Not yet implemented")
-ENDIF(TA_LIB_ENABLE_SWIG)
-
-IF(TA_LIB_ENABLE_TESTS)
-	MESSAGE(SEND_ERROR "Not yet implemented")
-ENDIF(TA_LIB_ENABLE_TESTS)
-
-IF(TA_LIB_ENABLE_GEN_CODE)
-	MESSAGE(SEND_ERROR "Not yet implemented")
-ENDIF(TA_LIB_ENABLE_GEN_CODE)
-
+ADD_SUBDIRECTORY(c)
